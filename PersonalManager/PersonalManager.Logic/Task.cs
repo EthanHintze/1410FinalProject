@@ -1,6 +1,6 @@
 namespace PersonalManager.Logic;
 
-public class Task
+public class Task : ICalendarItem
 {
     private string _taskName{ get;}
     private string _taskDescription{ get;}

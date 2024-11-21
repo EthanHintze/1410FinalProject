@@ -66,8 +66,8 @@ public class StartManager
         var newDay = new DateOnly(2024, 2, 9);
         var time = new TimeOnly(3, 2, 9);
         var reminder = personalManager.CreateNewReminder("Clean", time);
-        bool taskAdded = personalManager.AddReminderToDay(reminder, newDay);
-        Assert.True(taskAdded);
+        bool reminderAdded = personalManager.AddReminderToDay(reminder, newDay);
+        Assert.True(reminderAdded);
     }
     [Fact]
     public void CannotAddDuplicateReminder()
@@ -76,7 +76,33 @@ public class StartManager
         var time = new TimeOnly(3, 2, 9);
         var reminder = personalManager.CreateNewReminder("Clean", time);
         bool reminderAdded = personalManager.AddReminderToDay(reminder, day);
-        bool duplicateReminderkAdded = personalManager.AddReminderToDay(reminder, day);
-        Assert.False(duplicateReminderkAdded);
+        bool duplicateReminderAdded = personalManager.AddReminderToDay(reminder, day);
+        Assert.False(duplicateReminderAdded);
+    }
+    //Feature 4: Event Tests
+    [Fact]
+    public void CanAddEventToDayExistingDay()
+    {
+        var scheduledEventTime = new DateTime(2024, 2, 8, 3, 2, 9);
+        var newEvent = personalManager.CreateNewCalendarEvent("Clean", "", scheduledEventTime);
+        bool eventAdded = personalManager.AddEventToDay(newEvent, scheduledEventTime);
+        Assert.True(eventAdded);
+    }
+    [Fact]
+    public void CanAddEventToDayNonexistingDay()
+    {
+        var scheduledEventTime = new DateTime(2024, 9, 8, 3, 2, 9);
+        var newEvent = personalManager.CreateNewCalendarEvent("Clean", "", scheduledEventTime);
+        bool eventAdded = personalManager.AddEventToDay(newEvent, scheduledEventTime);
+        Assert.True(eventAdded);
+    }
+    [Fact]
+    public void CannotAddDuplicateEventAtTheSameTime()
+    {
+        var scheduledEventTime = new DateTime(2024, 9, 8, 3, 2, 9);
+        var newEvent = personalManager.CreateNewCalendarEvent("Clean", "", scheduledEventTime);
+        bool eventAdded = personalManager.AddEventToDay(newEvent, scheduledEventTime);
+        bool duplicateEventAdded = personalManager.AddEventToDay(newEvent, scheduledEventTime);
+        Assert.False(duplicateEventAdded);
     }
 }

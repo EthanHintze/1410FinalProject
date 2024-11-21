@@ -1,6 +1,6 @@
 namespace PersonalManager.Logic;
 
-public class Reminder
+public class Reminder : ICalendarItem
 {
     private string _reminderName;
     private TimeOnly _reminderTime;

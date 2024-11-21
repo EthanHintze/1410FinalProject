@@ -36,6 +36,11 @@ public class MainRunner
         Reminder newReminder = new Reminder(reminderName, time); ;
         return newReminder;
     }
+    public Event CreateNewCalendarEvent(string eventName, string eventDescription, DateTime scheduledTime)
+    {
+        Event newEvent = new Event(eventName, scheduledTime, eventDescription);
+        return newEvent;
+    }
 
     //Adding new things to a daily schedule
     public bool AddTaskToDay(Task task, DateOnly givenDay)

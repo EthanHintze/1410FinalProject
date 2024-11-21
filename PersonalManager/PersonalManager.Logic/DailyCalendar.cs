@@ -47,6 +47,10 @@ public class DailyCalendar
     {
         _reminders.Add(reminder);
     }
+    public void AddReminder(Event newEvent)
+    {
+        _schedule.Add(newEvent);
+    }
     
     
 
