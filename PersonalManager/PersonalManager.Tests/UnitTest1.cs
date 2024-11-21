@@ -50,4 +50,30 @@ public class StartManager
         bool duplicateTaskAdded = personalManager.AddTaskToDay(task, day);
         Assert.False(duplicateTaskAdded);
     }
+    //Feature 3: Reminder Tests
+    [Fact]
+    public void CanAddReminderToDayExistingDay()
+    {
+        var day = new DateOnly(2024, 2, 8);
+        var reminder = personalManager.CreateNewReminder("Clean", "Clean the kitchen", day);
+        bool taskAdded = personalManager.AddReminderToDay(reminder, day);
+        Assert.True(taskAdded);
+    }
+    [Fact]
+    public void CanAddReminderToDayNonexistingDay()
+    {
+        var newDay = new DateOnly(2024, 2, 9);
+        var reminder = personalManager.CreateNewReminder("Clean", "Clean the kitchen", newDay);
+        bool taskAdded = personalManager.AddReminderToDay(reminder, newDay);
+        Assert.True(taskAdded);
+    }
+    [Fact]
+    public void CannotAddDuplicateReminder()
+    {
+        var day = new DateOnly(2024, 2, 8);
+        var reminder = personalManager.CreateNewReminder("Clean", "Clean the kitchen", day);
+        bool reminderAdded = personalManager.AddReminderToDay(reminder, day);
+        bool duplicateReminderkAdded = personalManager.AddTaskToDay(reminder, day);
+        Assert.False(duplicateReminderkAdded);
+    }
 }
