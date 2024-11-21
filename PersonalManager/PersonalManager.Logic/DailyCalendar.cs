@@ -27,6 +27,18 @@ public class DailyCalendar
         }
         return containsTask;
     }
+    public bool CheckReminders(Reminder givenReminder)
+    {
+        bool containsReminder = false;
+        foreach(Reminder reminder in _reminders)
+        {
+            if(reminder.reminderName == givenReminder.reminderName)
+            {
+                containsReminder = true;
+            }
+        }
+        return containsReminder;
+    }
     public void AddTask(Task task)
     {
         _tasks.Add(task);

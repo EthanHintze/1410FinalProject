@@ -55,15 +55,17 @@ public class StartManager
     public void CanAddReminderToDayExistingDay()
     {
         var day = new DateOnly(2024, 2, 8);
-        var reminder = personalManager.CreateNewReminder("Clean", "Clean the kitchen", day);
-        bool taskAdded = personalManager.AddReminderToDay(reminder, day);
-        Assert.True(taskAdded);
+        var time = new TimeOnly(3, 2, 9);
+        var reminder = personalManager.CreateNewReminder("Clean", time);
+        bool reminderAdded = personalManager.AddReminderToDay(reminder, day);
+        Assert.True(reminderAdded);
     }
     [Fact]
     public void CanAddReminderToDayNonexistingDay()
     {
         var newDay = new DateOnly(2024, 2, 9);
-        var reminder = personalManager.CreateNewReminder("Clean", "Clean the kitchen", newDay);
+        var time = new TimeOnly(3, 2, 9);
+        var reminder = personalManager.CreateNewReminder("Clean", time);
         bool taskAdded = personalManager.AddReminderToDay(reminder, newDay);
         Assert.True(taskAdded);
     }
@@ -71,9 +73,10 @@ public class StartManager
     public void CannotAddDuplicateReminder()
     {
         var day = new DateOnly(2024, 2, 8);
-        var reminder = personalManager.CreateNewReminder("Clean", "Clean the kitchen", day);
+        var time = new TimeOnly(3, 2, 9);
+        var reminder = personalManager.CreateNewReminder("Clean", time);
         bool reminderAdded = personalManager.AddReminderToDay(reminder, day);
-        bool duplicateReminderkAdded = personalManager.AddTaskToDay(reminder, day);
+        bool duplicateReminderkAdded = personalManager.AddReminderToDay(reminder, day);
         Assert.False(duplicateReminderkAdded);
     }
 }
