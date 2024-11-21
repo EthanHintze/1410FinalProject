@@ -5,6 +5,7 @@ namespace PersonalManager.Tests;
 public class StartManager
 {
     MainRunner personalManager = new MainRunner();
+    //Feature 1: Daily Calendar Tests
     [Fact]
     void CanAddNewDailySchedule()
     {
