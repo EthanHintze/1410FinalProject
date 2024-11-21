@@ -27,23 +27,27 @@ public class StartManager
     [Fact]
     public void CanAddTaskToDayExistingDay()
     {
-        var Day = new DateOnly(2024, 2, 8);
-        var task = personalManager.CreateNewTask("Clean", "Clean the kitchen", Day);
-        bool taskAdded = personalManager.AddTaskToDay(task);
+        var day = new DateOnly(2024, 2, 8);
+        var NewDailySchedule = new DailyCalendar(day);
+        var task = personalManager.CreateNewTask("Clean", "Clean the kitchen", day);
+        bool taskAdded = personalManager.AddTaskToDay(task, day);
         Assert.True(taskAdded);
     }
+    [Fact]
     public void CanAddTaskToDayNonexistingDay()
     {
-        var NewDay = new DateOnly(2024, 2, 9);
-        var task = personalManager.CreateNewTask("Clean", "Clean the kitchen", NewDay);
-        bool taskAdded = personalManager.AddTaskToDay(task);
+        var newDay = new DateOnly(2024, 2, 9);
+        var task = personalManager.CreateNewTask("Clean", "Clean the kitchen", newDay);
+        bool taskAdded = personalManager.AddTaskToDay(task, newDay);
         Assert.True(taskAdded);
     }
+    [Fact]
     public void CannotAddDuplicateTasks()
     {
-        var Day = new DateOnly(2024, 2, 8);
-        var task = personalManager.CreateNewTask("Clean", "Clean the kitchen", Day);
-        bool taskAdded = personalManager.AddTaskToDay(task);
-        Assert.False(taskAdded);
+        var day = new DateOnly(2024, 2, 8);
+        var task = personalManager.CreateNewTask("Clean", "Clean the kitchen", day);
+        bool taskAdded = personalManager.AddTaskToDay(task, day);
+        bool duplicateTaskAdded = personalManager.AddTaskToDay(task, day);
+        Assert.False(duplicateTaskAdded);
     }
 }

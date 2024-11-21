@@ -20,27 +20,49 @@ public class MainRunner
                 scheduleAdded = false;
             }
         }
-        _dailySchedules.Add(day);
+        if (scheduleAdded != false)
+        {
+            _dailySchedules.Add(day);
+        }
         return scheduleAdded;
     }
+    public Task CreateNewTask(string taskName, string taskDescription, DateOnly date)
+    {
+        Task newTask = new Task(taskName, taskDescription, date);
+        return newTask;
+    }
+
     //Adding new things to a daily schedule
-    public bool AddTaskToDay(Task task, DailyCalendar givenDay)
+    public bool AddTaskToDay(Task task, DateOnly givenDay)
     {
         bool taskAdded = false;
-        if (_dailySchedules.Contains(givenDay))
+        bool schedlueExists = false;
+        foreach (DailyCalendar schedule in _dailySchedules)
         {
-            foreach(Task task in givenDay._tasks)
-            givenDay.AddTask(task);
+            if (schedule.Date == givenDay)
+            {
+                bool containsTask = schedule.CheckTasks(task);
+                if (containsTask == false)
+                {
+                    schedule.AddTask(task);
+                    taskAdded = true;
+                }
+                schedlueExists = true;
+
+            }
         }
-        //Creates new schedule if it doesn't already contain it
-        else
+        //Creates new schedule if one doesnt exist
+        if (schedlueExists == false)
         {
-            _dailySchedules.Add(givenDay);
-            givenDay.AddTask(task);
+            DailyCalendar NewSchedule = new DailyCalendar(givenDay);
+            CreateNewDailySchedule(NewSchedule);
+            NewSchedule.AddTask(task);
+            taskAdded = true;
         }
+        return taskAdded;
 
     }
-     public void AddReminderToDay(Reminder reminder, DailyCalendar calendar)
+    public void AddReminderToDay(Reminder reminder, DailyCalendar calendar)
     {
         if (_dailySchedules.Contains(calendar))
         {

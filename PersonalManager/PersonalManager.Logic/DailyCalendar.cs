@@ -15,7 +15,18 @@ public class DailyCalendar
         _schedule = new List<Event>();
         _date = date;
     }
-    
+    public bool CheckTasks(Task givenTask)
+    {
+        bool containsTask = false;
+        foreach(Task task in _tasks)
+        {
+            if(task.taskName == givenTask.taskName && task.taskDescription == givenTask.taskDescription)
+            {
+                containsTask = true;
+            }
+        }
+        return containsTask;
+    }
     public void AddTask(Task task)
     {
         _tasks.Add(task);
