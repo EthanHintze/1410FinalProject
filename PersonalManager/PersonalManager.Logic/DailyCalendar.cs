@@ -15,7 +15,7 @@ public class DailyCalendar
         _schedule = new List<Event>();
         _date = date;
     }
-
+    
     public void AddTask(Task task)
     {
         _tasks.Add(task);

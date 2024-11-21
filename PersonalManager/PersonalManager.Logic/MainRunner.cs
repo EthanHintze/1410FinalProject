@@ -9,7 +9,8 @@ public class MainRunner
     {
         _dailySchedules = new List<DailyCalendar>();
     }
-    public bool AddNewDailySchedule(DailyCalendar day)
+    //Creating new components
+    public bool CreateNewDailySchedule(DailyCalendar day)
     {
         bool scheduleAdded = true;
         foreach (DailyCalendar cal in _dailySchedules)
@@ -21,21 +22,23 @@ public class MainRunner
         }
         _dailySchedules.Add(day);
         return scheduleAdded;
-
-
     }
-    public void AddTaskToDay(Task task, DailyCalendar calendar)
+    //Adding new things to a daily schedule
+    public bool AddTaskToDay(Task task, DailyCalendar givenDay)
     {
-        if (_dailySchedules.Contains(calendar))
+        bool taskAdded = false;
+        if (_dailySchedules.Contains(givenDay))
         {
-            calendar.AddTask(task);
+            foreach(Task task in givenDay._tasks)
+            givenDay.AddTask(task);
         }
+        //Creates new schedule if it doesn't already contain it
         else
         {
-            _dailySchedules.Add(calendar);
-            calendar.AddTask(task);
-
+            _dailySchedules.Add(givenDay);
+            givenDay.AddTask(task);
         }
+
     }
      public void AddReminderToDay(Reminder reminder, DailyCalendar calendar)
     {
