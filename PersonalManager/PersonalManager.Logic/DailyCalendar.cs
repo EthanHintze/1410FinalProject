@@ -1,6 +1,6 @@
 namespace PersonalManager.Logic;
 
-public class DailyCalendar
+public class DailyCalendar 
 {
     private List<Event> _schedule;
     private DateOnly _date{get;}
@@ -39,6 +39,18 @@ public class DailyCalendar
         }
         return containsReminder;
     }
+     public bool CheckEvent(Event givenEvent)
+    {
+        bool containsReminder = false;
+        foreach(Event nEvent in _schedule)
+        {
+            if(nEvent.eventName == givenEvent.eventName && nEvent.scheduledTime == givenEvent.scheduledTime)
+            {
+                containsReminder = true;
+            }
+        }
+        return containsReminder;
+    }
     public void AddTask(Task task)
     {
         _tasks.Add(task);
@@ -47,7 +59,7 @@ public class DailyCalendar
     {
         _reminders.Add(reminder);
     }
-    public void AddReminder(Event newEvent)
+    public void AddEvent(Event newEvent)
     {
         _schedule.Add(newEvent);
     }

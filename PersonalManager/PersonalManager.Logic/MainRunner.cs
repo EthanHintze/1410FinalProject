@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace PersonalManager.Logic;
+﻿namespace PersonalManager.Logic;
 
 public class MainRunner
 {
@@ -99,6 +97,35 @@ public class MainRunner
             reminderAdded = true;
         }
         return reminderAdded;
+
+    }
+    public bool AddEventToDay(Event newEvent)
+    {
+        bool eventAdded = false;
+        bool schedlueExists = false;
+        foreach (DailyCalendar schedule in _dailySchedules)
+        {
+            if (schedule.Date == newEvent.scheduledTime.Date)
+            {
+                bool containsTask = schedule.CheckEvents(newEvent);
+                if (containsTask == false)
+                {
+                    schedule.AddEvent(newEvent);
+                    eventAdded = true;
+                }
+                schedlueExists = true;
+
+            }
+        }
+        //Creates new schedule if one doesnt exist
+        if (schedlueExists == false)
+        {
+            DailyCalendar NewSchedule = new DailyCalendar(givenDay);
+            CreateNewDailySchedule(NewSchedule);
+            NewSchedule.AddEvent(newEvent);
+            eventAdded = true;
+        }
+        return eventAdded;
 
     }
 
