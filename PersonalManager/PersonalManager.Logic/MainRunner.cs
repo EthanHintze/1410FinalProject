@@ -145,8 +145,8 @@ public class MainRunner
         {
             if (schedule.Date == givenDay)
             {
-                bool containsTask = schedule.CheckAlarm(alarm);
-                if (containsTask == false)
+                bool containsAlarm = schedule.CheckAlarm(alarm);
+                if (containsAlarm == false)
                 {
                     schedule.AddAlarm(alarm);
                     alarmAdded = true;

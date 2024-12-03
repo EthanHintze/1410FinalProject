@@ -14,6 +14,7 @@ public class DailyCalendar
         _tasks = new List<Task>();
         _reminders = new List<Reminder>();
         _schedule = new List<Event>();
+        _alarms = new List<Alarm>();
         _date = date;
     }
     //Checks for items in the day
