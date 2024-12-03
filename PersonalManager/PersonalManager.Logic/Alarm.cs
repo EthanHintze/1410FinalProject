@@ -3,6 +3,7 @@ namespace PersonalManager.Logic;
 public class Alarm : ICalendarItem
 {
     private TimeOnly _setTime{get;}
+    public TimeOnly setTime{get => _setTime;}   
 
     public Alarm(TimeOnly setTime)
     {

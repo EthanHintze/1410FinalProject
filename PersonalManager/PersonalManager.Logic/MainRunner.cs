@@ -34,13 +34,19 @@ public class MainRunner
         Reminder newReminder = new Reminder(reminderName, time); ;
         return newReminder;
     }
-    public Event CreateNewCalendarEvent(string eventName, string eventDescription, DateTime scheduledTime)
+    public Event CreateNewCalendarEvent(string eventName, string eventDescription, TimeOnly scheduledTime, DateOnly scheduledDate)
     {
-        Event newEvent = new Event(eventName, scheduledTime, eventDescription);
+        Event newEvent = new Event(eventName, scheduledTime, scheduledDate, eventDescription);
         return newEvent;
+    }
+    public Alarm CreateNewAlarm(TimeOnly givenTime)
+    {
+        Alarm newAlarm = new Alarm(givenTime);
+        return newAlarm;
     }
 
     //Adding new things to a daily schedule
+    //Task
     public bool AddTaskToDay(Task task, DateOnly givenDay)
     {
         bool taskAdded = false;
@@ -70,6 +76,7 @@ public class MainRunner
         return taskAdded;
 
     }
+    //Reminder
     public bool AddReminderToDay(Reminder reminder, DateOnly givenDay)
     {
         bool reminderAdded = false;
@@ -99,15 +106,16 @@ public class MainRunner
         return reminderAdded;
 
     }
+    //Event
     public bool AddEventToDay(Event newEvent)
     {
         bool eventAdded = false;
         bool schedlueExists = false;
         foreach (DailyCalendar schedule in _dailySchedules)
         {
-            if (schedule.Date == newEvent.scheduledTime.Date)
+            if (schedule.Date == newEvent.scheduledDate)
             {
-                bool containsTask = schedule.CheckEvents(newEvent);
+                bool containsTask = schedule.CheckEvent(newEvent);
                 if (containsTask == false)
                 {
                     schedule.AddEvent(newEvent);
@@ -120,12 +128,42 @@ public class MainRunner
         //Creates new schedule if one doesnt exist
         if (schedlueExists == false)
         {
-            DailyCalendar NewSchedule = new DailyCalendar(givenDay);
+            DailyCalendar NewSchedule = new DailyCalendar(newEvent.scheduledDate);
             CreateNewDailySchedule(NewSchedule);
             NewSchedule.AddEvent(newEvent);
             eventAdded = true;
         }
         return eventAdded;
+
+    }
+    //Alarm
+     public bool AddAlarmToDay(Alarm alarm, DateOnly givenDay)
+    {
+        bool alarmAdded = false;
+        bool schedlueExists = false;
+        foreach (DailyCalendar schedule in _dailySchedules)
+        {
+            if (schedule.Date == givenDay)
+            {
+                bool containsTask = schedule.CheckAlarm(alarm);
+                if (containsTask == false)
+                {
+                    schedule.AddAlarm(alarm);
+                    alarmAdded = true;
+                }
+                schedlueExists = true;
+
+            }
+        }
+        //Creates new schedule if one doesnt exist
+        if (schedlueExists == false)
+        {
+            DailyCalendar NewSchedule = new DailyCalendar(givenDay);
+            CreateNewDailySchedule(NewSchedule);
+            NewSchedule.AddAlarm(alarm);
+            alarmAdded = true;
+        }
+        return alarmAdded;
 
     }
 

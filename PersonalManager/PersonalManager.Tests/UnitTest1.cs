@@ -80,49 +80,52 @@ public class StartManager
         Assert.False(duplicateReminderAdded);
     }
     //Feature 4: Event Tests
-    // [Fact]
-    // public void CanAddEventToDayExistingDay()
-    // {
-    //     var scheduledEventTime = new DateTime(2024, 2, 8, 3, 2, 9);
-    //     var newEvent = personalManager.CreateNewCalendarEvent("Clean", "", scheduledEventTime);
-    //     bool eventAdded = personalManager.AddEventToDay(newEvent, scheduledEventTime);
-    //     Assert.True(eventAdded);
-    // }
-    // [Fact]
-    // public void CanAddEventToDayNonexistingDay()
-    // {
-    //     var scheduledEventTime = new DateTime(2024, 9, 8, 3, 2, 9);
-    //     var newEvent = personalManager.CreateNewCalendarEvent("Clean", "", scheduledEventTime);
-    //     bool eventAdded = personalManager.AddEventToDay(newEvent, scheduledEventTime);
-    //     Assert.True(eventAdded);
-    // }
-    // [Fact]
-    // public void CannotAddDuplicateEventAtTheSameTime()
-    // {
-    //     var scheduledEventTime = new DateTime(2024, 9, 8, 3, 2, 9);
-    //     var newEvent = personalManager.CreateNewCalendarEvent("Clean", "", scheduledEventTime);
-    //     bool eventAdded = personalManager.AddEventToDay(newEvent, scheduledEventTime);
-    //     bool duplicateEventAdded = personalManager.AddEventToDay(newEvent, scheduledEventTime);
-    //     Assert.False(duplicateEventAdded);
-    // }
-    //Feature 5: Alarm Tests
-     [Fact]
-    public void CanAddAlarm()
+    [Fact]
+    public void CanAddEventToDayExistingDay()
     {
         var day = new DateOnly(2024, 2, 8);
         var time = new TimeOnly(3, 2, 9);
-        var alarm = personalManager.CreateNewAlarm(time);
-        bool alarmAdded = personalManager.AddAlarmToDay(alarm);
-        Assert.True(alarmAdded);
+        var newEvent = personalManager.CreateNewCalendarEvent("Clean", "",time, day );
+        bool eventAdded = personalManager.AddEventToDay(newEvent);
+        Assert.True(eventAdded);
     }
     [Fact]
-    public void CannotAddDuplicateAlarm()
+    public void CanAddEventToDayNonexistingDay()
     {
         var day = new DateOnly(2024, 2, 8);
         var time = new TimeOnly(3, 2, 9);
-        var alarm = personalManager.CreateNewAlarm(time);
-        bool alarmAdded = personalManager.AddAlarmToDay(alarm, day);
-        bool duplicateAlarmAdded = personalManager.AddAlarmToDay(alarm, day);
-        Assert.False(duplicateAlarmAdded);
+        var newEvent = personalManager.CreateNewCalendarEvent("Clean", "",time, day );
+        bool eventAdded = personalManager.AddEventToDay(newEvent);
+        Assert.True(eventAdded);
     }
+    [Fact]
+    public void CannotAddDuplicateEventAtTheSameTime()
+    {
+        var day = new DateOnly(2024, 2, 8);
+        var time = new TimeOnly(3, 2, 9);
+        var newEvent = personalManager.CreateNewCalendarEvent("Clean", "",time, day );
+        bool eventAdded = personalManager.AddEventToDay(newEvent);
+        bool duplicateEventAdded = personalManager.AddEventToDay(newEvent);
+        Assert.False(duplicateEventAdded);
+    }
+    //Feature 5: Alarm Tests
+    //  [Fact]
+    // public void CanAddAlarm()
+    // {
+    //     var day = new DateOnly(2024, 2, 8);
+    //     var time = new TimeOnly(3, 2, 9);
+    //     var alarm = personalManager.CreateNewAlarm(time);
+    //     bool alarmAdded = personalManager.AddAlarmToDay(alarm, day);
+    //     Assert.True(alarmAdded);
+    // }
+    // [Fact]
+    // public void CannotAddDuplicateAlarm()
+    // {
+    //     var day = new DateOnly(2024, 2, 8);
+    //     var time = new TimeOnly(3, 2, 9);
+    //     var alarm = personalManager.CreateNewAlarm(time);
+    //     bool alarmAdded = personalManager.AddAlarmToDay(alarm, day);
+    //     bool duplicateAlarmAdded = personalManager.AddAlarmToDay(alarm, day);
+    //     Assert.False(duplicateAlarmAdded);
+    // }
 }

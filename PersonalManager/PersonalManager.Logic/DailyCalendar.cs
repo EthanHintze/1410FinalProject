@@ -6,6 +6,7 @@ public class DailyCalendar
     private DateOnly _date{get;}
     private List<Task> _tasks;
     private List<Reminder> _reminders;
+    private List<Alarm> _alarms;
     public DateOnly Date{get{return _date;}}
 
     public DailyCalendar(DateOnly date)
@@ -15,6 +16,7 @@ public class DailyCalendar
         _schedule = new List<Event>();
         _date = date;
     }
+    //Checks for items in the day
     public bool CheckTasks(Task givenTask)
     {
         bool containsTask = false;
@@ -41,16 +43,29 @@ public class DailyCalendar
     }
      public bool CheckEvent(Event givenEvent)
     {
-        bool containsReminder = false;
+        bool containsEvent = false;
         foreach(Event nEvent in _schedule)
         {
             if(nEvent.eventName == givenEvent.eventName && nEvent.scheduledTime == givenEvent.scheduledTime)
             {
-                containsReminder = true;
+                containsEvent = true;
             }
         }
-        return containsReminder;
+        return containsEvent;
     }
+    public bool CheckAlarm(Alarm givenAlarm)
+    {
+        bool containsAlarm = false;
+        foreach(Alarm alarm in _alarms)
+        {
+            if(alarm.setTime == givenAlarm.setTime)
+            {
+                containsAlarm = true;
+            }
+        }
+        return containsAlarm;
+    }
+    //Adding items to the day
     public void AddTask(Task task)
     {
         _tasks.Add(task);
@@ -62,6 +77,10 @@ public class DailyCalendar
     public void AddEvent(Event newEvent)
     {
         _schedule.Add(newEvent);
+    }
+    public void AddAlarm(Alarm newAlarm)
+    {
+        _alarms.Add(newAlarm);
     }
     
     

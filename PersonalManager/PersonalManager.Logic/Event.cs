@@ -3,16 +3,19 @@ namespace PersonalManager.Logic;
 public class Event : ICalendarItem
 {
     private string _eventName{get;}
-    private DateTime _scheduledTime{get;}
+    private TimeOnly _scheduledTime{get;}
+    private DateOnly _scheduledDate{get;}
     private string _eventDescription{get;}
     public string eventName{get => _eventName;}
     public string eventDescription{get => _eventDescription;}
-    public DateTime scheduledTime{get => _scheduledTime;}
+    public TimeOnly scheduledTime{get => _scheduledTime;}
+    public DateOnly scheduledDate{get => _scheduledDate;}
 
-    public Event(string eventName, DateTime scheduledTime, string eventDescription)
+    public Event(string eventName, TimeOnly scheduledTime, DateOnly scheduledDate, string eventDescription)
     {
         _eventName = eventName;
         _scheduledTime = scheduledTime;
+        _scheduledDate = scheduledDate;
         _eventDescription = eventDescription;
     }
 
