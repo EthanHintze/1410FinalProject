@@ -7,6 +7,7 @@ public class DailyCalendar
     private List<Task> _tasks;
     private List<Reminder> _reminders;
     private List<Alarm> _alarms;
+    private List<Note> _notes;
     public DateOnly Date{get{return _date;}}
 
     public DailyCalendar(DateOnly date)
@@ -15,6 +16,7 @@ public class DailyCalendar
         _reminders = new List<Reminder>();
         _schedule = new List<Event>();
         _alarms = new List<Alarm>();
+        _notes = new List<Note>();
         _date = date;
     }
     //Checks for items in the day

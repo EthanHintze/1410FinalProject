@@ -128,4 +128,21 @@ public class StartManager
         bool duplicateAlarmAdded = personalManager.AddAlarmToDay(alarm, day);
         Assert.False(duplicateAlarmAdded);
     }
+    //Feature 6: Notes Test
+    public void CanAddNote()
+    {
+        var day = new DateOnly(2024, 2, 8);
+        string note = "today i saw a balloon";
+        var newNote = personalManager.CreateNewNote(note, day);
+        bool noteAdded = personalManager.AddNoteToDay(newNote);
+        Assert.True(noteAdded);
+    }
+    public void CanAddNoteToNonExistentDay()
+    {
+        var day = new DateOnly(2024, 10, 8);
+        string note = "today i saw a balloon";
+        var newNote = personalManager.CreateNewNote(note, day);
+        bool noteAdded = personalManager.AddNoteToDay(newNote);
+        Assert.True(noteAdded);
+    }
 }
