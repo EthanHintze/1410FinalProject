@@ -44,6 +44,11 @@ public class MainRunner
         Alarm newAlarm = new Alarm(givenTime);
         return newAlarm;
     }
+    public Note CreateNewNote(string Note, DateOnly givenDate)
+    {
+        Note newNote = new Note(Note, givenDate);
+        return newNote;
+    }
 
     //Adding new things to a daily schedule
     //Task
@@ -137,7 +142,7 @@ public class MainRunner
 
     }
     //Alarm
-     public bool AddAlarmToDay(Alarm alarm, DateOnly givenDay)
+    public bool AddAlarmToDay(Alarm alarm, DateOnly givenDay)
     {
         bool alarmAdded = false;
         bool schedlueExists = false;
@@ -161,6 +166,31 @@ public class MainRunner
             DailyCalendar NewSchedule = new DailyCalendar(givenDay);
             CreateNewDailySchedule(NewSchedule);
             NewSchedule.AddAlarm(alarm);
+            alarmAdded = true;
+        }
+        return alarmAdded;
+
+    }
+    public bool AddNoteToDay(Note givenNote)
+    {
+        bool alarmAdded = false;
+        bool schedlueExists = false;
+        foreach (DailyCalendar schedule in _dailySchedules)
+        {
+            if (schedule.Date == givenNote.dateCreated)
+            {
+                schedule.AddNote(givenNote);
+                alarmAdded = true;
+                schedlueExists = true;
+
+            }
+        }
+        //Creates new schedule if one doesnt exist
+        if (schedlueExists == false)
+        {
+            DailyCalendar NewSchedule = new DailyCalendar(givenNote.dateCreated);
+            CreateNewDailySchedule(NewSchedule);
+            NewSchedule.AddNote(givenNote);
             alarmAdded = true;
         }
         return alarmAdded;

@@ -85,6 +85,10 @@ public class DailyCalendar
     {
         _alarms.Add(newAlarm);
     }
+    public void AddNote(Note newNote)
+    {
+        _notes.Add(newNote);
+    }
     
     
 
