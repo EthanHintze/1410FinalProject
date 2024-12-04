@@ -1,0 +1,63 @@
+@page "/EditCalendars"
+
+<PageTitle>Edit Calendars</PageTitle>﻿
+
+@using PersonalManager.Logic
+<div class="border m-3 p-2">
+    <h3>Create New Calendar</h3>
+    <form @onsubmit="addCalendar">
+        <label>
+            Date:
+            <input @bind="givenDay" type="text" />
+        </label>
+        <button type="submit">Add</button>
+    </form>
+</div>
+<div class="border m-3 p-2">
+    <h3>Create New Task</h3>
+    <form @onsubmit="addTask">
+        <label>
+            Date:
+            <input @bind="givenDay" type="text" />
+        </label>
+        <label>
+            Name:
+            <input @bind="name" type="text" />
+        </label>
+        <label>
+            Description:
+            <input @bind="description" type="text" />
+        </label>
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+@code {
+    DateOnly givenDay;
+    string name = "";
+    string description = "";
+    MainRunner mainRunner = MainRunner.Instance;
+
+    void addCalendar()
+    {
+        mainRunner.CreateNewCalendar(givenDay);
+    }
+    void addTask()
+    {
+       var task = mainRunner.CreateNewTask(name, description, givenDay);
+        mainRunner.AddTaskToDay(task, givenDay);
+    }void addEvent()
+    {
+        mainRunner.CreateNewCalendar(givenDay);
+    }void addAlarm()
+    {
+        mainRunner.CreateNewCalendar(givenDay);
+    }void addNote()
+    {
+        mainRunner.CreateNewCalendar(givenDay);
+    }void addReminder()
+    {
+        mainRunner.CreateNewCalendar(givenDay);
+    }
+
+}
