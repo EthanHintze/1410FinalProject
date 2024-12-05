@@ -54,11 +54,43 @@
     </form>
 </div>
 <div class="border m-3 p-2">
+    <h3>Create New Reminder</h3>
+    <form @onsubmit="addReminder">
+        <label>
+            Date:
+            <input @bind="givenDay" type="text" />
+        </label>
+        <label>
+            Time:
+            <input @bind="time" type="text" />
+        </label>
+        <label>
+            Name:
+            <input @bind="name" type="text" />
+        </label>
+        <button type="submit">Add</button>
+    </form>
+</div>
+<div class="border m-3 p-2">
     <h3>Create New Alarm</h3>
     <form @onsubmit="addAlarm">
         <label>
             Time:
             <input @bind="time" type="text" />
+        </label>
+        <button type="submit">Add</button>
+    </form>
+</div>
+<div class="border m-3 p-2">
+    <h3>Create New Note</h3>
+    <form @onsubmit="addNote">
+        <label>
+            Date:
+            <input @bind="givenDay" type="text" />
+        </label>
+        <label>
+            Content:
+            <input @bind="description" type="text" />
         </label>
         <button type="submit">Add</button>
     </form>
@@ -82,16 +114,24 @@
         mainRunner.AddTaskToDay(task, givenDay);
     }void addEvent()
     {
-        mainRunner.CreateNewCalendar(givenDay);
-    }void addAlarm()
+        var newEvent = mainRunner.CreateNewCalendarEvent(name, description, time, givenDay);
+        mainRunner.AddEventToDay(newEvent);
+    }
+    void addAlarm()
     {
-        mainRunner.CreateNewCalendar(givenDay);
-    }void addNote()
+        var alarm = mainRunner.CreateNewAlarm(time);
+        mainRunner.AddAlarmToDay(alarm, givenDay);
+
+    }
+    void addNote()
     {
-        mainRunner.CreateNewCalendar(givenDay);
-    }void addReminder()
+       var note = mainRunner.CreateNewNote( description, givenDay);
+        mainRunner.AddNoteToDay(note);
+    }
+    void addReminder()
     {
-        mainRunner.CreateNewCalendar(givenDay);
+        var reminder = mainRunner.CreateNewReminder(name, time);
+        mainRunner.AddReminderToDay(reminder, givenDay);
     }
 
 }

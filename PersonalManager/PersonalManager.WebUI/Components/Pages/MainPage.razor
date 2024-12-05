@@ -9,13 +9,7 @@
     <p>@dCal.Date</p>
     foreach(var calItem in dCal.calendarItems)
     {
-        if(calItem is PersonalManager.Logic.Task)
-        {
-
         <p>@calItem.CalendarText</p>
-        }
-         
-
     }
 }
 @code {
