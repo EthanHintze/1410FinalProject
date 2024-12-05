@@ -3,6 +3,15 @@
 <PageTitle>Edit Calendars</PageTitle>﻿
 
 @using PersonalManager.Logic
+@foreach(var dCal in mainRunner.dailyCalendars)
+{
+    <p>@dCal.Date</p>
+    foreach(var calItem in dCal.calendarItems)
+    {
+        <p>@calItem.CalendarText</p>
+    }
+    <p>-----------------------------</p>
+}
 <div class="border m-3 p-2">
     <h3>Create New Calendar</h3>
     <form @onsubmit="addCalendar">
