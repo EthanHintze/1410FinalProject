@@ -4,15 +4,15 @@
 
 <h1>Main Page</h1>
 
-@foreach(var dCal in mainRunner.dailyCalendars)
+@foreach (var dCal in mainRunner.dailyCalendars)
 {
-    <p>@dCal.Date</p>
-    foreach(var calItem in dCal.calendarItems)
-    {
+
+        <p>@dCal.Date</p>
+        foreach(var calItem in dCal.calendarItems)
+        {
         <p>@calItem.CalendarText</p>
-    }
-    <p>-----------------------------</p>
+        }
 }
 @code {
-        MainRunner mainRunner = MainRunner.Instance;
-    }
+    MainRunner mainRunner = MainRunner.Instance;
+}

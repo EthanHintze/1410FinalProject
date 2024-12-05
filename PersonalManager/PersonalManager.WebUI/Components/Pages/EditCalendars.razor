@@ -3,15 +3,19 @@
 <PageTitle>Edit Calendars</PageTitle>﻿
 
 @using PersonalManager.Logic
-@foreach(var dCal in mainRunner.dailyCalendars)
-{
-    <p>@dCal.Date</p>
-    foreach(var calItem in dCal.calendarItems)
+<div class="border m-3 p-2">
+    <h3>Select Calendar</h3>
+    
+        
+    @foreach (var dCal in mainRunner.dailyCalendars)
     {
-        <p>@calItem.CalendarText</p>
+        <label>
+            
+            <button @onclick="()=> setDate(dCal)">@dCal.Date</button>
+        </label>
+        
     }
-    <p>-----------------------------</p>
-}
+</div>
 <div class="border m-3 p-2">
     <h3>Create New Calendar</h3>
     <form @onsubmit="addCalendar">
@@ -25,10 +29,7 @@
 <div class="border m-3 p-2">
     <h3>Create New Event</h3>
     <form @onsubmit="addEvent">
-        <label>
-            Date:
-            <input @bind="givenDay" type="text" />
-        </label>
+        
         <label>
             Time:
             <input @bind="time" type="text" />
@@ -47,10 +48,7 @@
 <div class="border m-3 p-2">
     <h3>Create New Task</h3>
     <form @onsubmit="addTask">
-        <label>
-            Date:
-            <input @bind="givenDay" type="text" />
-        </label>
+        
         <label>
             Name:
             <input @bind="name" type="text" />
@@ -65,10 +63,7 @@
 <div class="border m-3 p-2">
     <h3>Create New Reminder</h3>
     <form @onsubmit="addReminder">
-        <label>
-            Date:
-            <input @bind="givenDay" type="text" />
-        </label>
+        
         <label>
             Time:
             <input @bind="time" type="text" />
@@ -93,10 +88,7 @@
 <div class="border m-3 p-2">
     <h3>Create New Note</h3>
     <form @onsubmit="addNote">
-        <label>
-            Date:
-            <input @bind="givenDay" type="text" />
-        </label>
+        
         <label>
             Content:
             <input @bind="description" type="text" />
@@ -112,16 +104,17 @@
     string description = "";
 
     MainRunner mainRunner = MainRunner.Instance;
-
+    
     void addCalendar()
     {
         mainRunner.CreateNewCalendar(givenDay);
     }
     void addTask()
     {
-       var task = mainRunner.CreateNewTask(name, description, givenDay);
+        var task = mainRunner.CreateNewTask(name, description, givenDay);
         mainRunner.AddTaskToDay(task, givenDay);
-    }void addEvent()
+    }
+    void addEvent()
     {
         var newEvent = mainRunner.CreateNewCalendarEvent(name, description, time, givenDay);
         mainRunner.AddEventToDay(newEvent);
@@ -134,13 +127,17 @@
     }
     void addNote()
     {
-       var note = mainRunner.CreateNewNote( description, givenDay);
+        var note = mainRunner.CreateNewNote(description, givenDay);
         mainRunner.AddNoteToDay(note);
     }
     void addReminder()
     {
         var reminder = mainRunner.CreateNewReminder(name, time);
         mainRunner.AddReminderToDay(reminder, givenDay);
+    }
+    void setDate(DailyCalendar calendar)
+    {
+        givenDay = calendar.Date;
     }
 
 }
