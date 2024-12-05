@@ -11,7 +11,7 @@ public class StartManager
     {
         var NewDay = new DateOnly(2024, 2, 8);
         var NewDailySchedule = new DailyCalendar(NewDay);
-        bool scheduleAdded = personalManager.CreateNewDailySchedule(NewDailySchedule);
+        bool scheduleAdded = personalManager.AddNewDailySchedule(NewDailySchedule);
         Assert.True(scheduleAdded);
     }
     [Fact]
@@ -19,8 +19,8 @@ public class StartManager
     {
         var NewDay = new DateOnly(2024, 2, 8);
         var NewDailySchedule = new DailyCalendar(NewDay);
-        bool scheduleAdded = personalManager.CreateNewDailySchedule(NewDailySchedule);
-        bool scheduleAddedAgain = personalManager.CreateNewDailySchedule(NewDailySchedule);
+        bool scheduleAdded = personalManager.AddNewDailySchedule(NewDailySchedule);
+        bool scheduleAddedAgain = personalManager.AddNewDailySchedule(NewDailySchedule);
         Assert.False(scheduleAddedAgain);
     }
     //Feature 2: Task Tests
@@ -129,6 +129,7 @@ public class StartManager
         Assert.False(duplicateAlarmAdded);
     }
     //Feature 6: Notes Test
+    [Fact]
     public void CanAddNote()
     {
         var day = new DateOnly(2024, 2, 8);
@@ -137,6 +138,7 @@ public class StartManager
         bool noteAdded = personalManager.AddNoteToDay(newNote);
         Assert.True(noteAdded);
     }
+    [Fact]
     public void CanAddNoteToNonExistentDay()
     {
         var day = new DateOnly(2024, 10, 8);

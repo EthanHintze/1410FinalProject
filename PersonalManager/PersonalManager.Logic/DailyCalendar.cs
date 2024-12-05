@@ -9,6 +9,13 @@ public class DailyCalendar
     private List<Alarm> _alarms;
     private List<Note> _notes;
     public DateOnly Date{get{return _date;}}
+    public List<Task> Tasks{get{return _tasks;}}
+    public List<Event> Events{get{return _schedule;}}
+    public List<Note> Notes{get{return _notes;}}
+    public List<Reminder> Reminders{get{return _reminders;}}
+    public List<Alarm> Alarms{get{return _alarms;}}
+    
+    public List<ICalendarItem> calendarItems;
 
     public DailyCalendar(DateOnly date)
     {
@@ -17,6 +24,7 @@ public class DailyCalendar
         _schedule = new List<Event>();
         _alarms = new List<Alarm>();
         _notes = new List<Note>();
+        calendarItems = new List<ICalendarItem>();
         _date = date;
     }
     //Checks for items in the day
@@ -72,24 +80,30 @@ public class DailyCalendar
     public void AddTask(Task task)
     {
         _tasks.Add(task);
+        calendarItems.Add(task);
     }
     public void AddReminder(Reminder reminder)
     {
         _reminders.Add(reminder);
+        calendarItems.Add(reminder);
+
     }
     public void AddEvent(Event newEvent)
     {
         _schedule.Add(newEvent);
+        calendarItems.Add(newEvent);
+
     }
     public void AddAlarm(Alarm newAlarm)
     {
         _alarms.Add(newAlarm);
+        calendarItems.Add(newAlarm);
     }
     public void AddNote(Note newNote)
     {
         _notes.Add(newNote);
+        calendarItems.Add(newNote);
     }
-    
     
 
 

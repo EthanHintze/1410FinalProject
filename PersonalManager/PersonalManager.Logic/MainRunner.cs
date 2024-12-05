@@ -3,26 +3,25 @@
 public class MainRunner
 {
     private List<DailyCalendar> _dailySchedules { get; set; }
+    public List <DailyCalendar> dailyCalendars{get{return _dailySchedules;}}
+    private static MainRunner _instance;
+    public static MainRunner Instance { get{
+        if (_instance == null)
+        {
+            _instance = new MainRunner();
+        }
+        return _instance;
+    }}  
+
     public MainRunner()
     {
         _dailySchedules = new List<DailyCalendar>();
     }
     //Creating new components
-    public bool CreateNewDailySchedule(DailyCalendar day)
+    public void CreateNewCalendar(DateOnly givenDay)
     {
-        bool scheduleAdded = true;
-        foreach (DailyCalendar cal in _dailySchedules)
-        {
-            if (cal.Date == day.Date)
-            {
-                scheduleAdded = false;
-            }
-        }
-        if (scheduleAdded != false)
-        {
-            _dailySchedules.Add(day);
-        }
-        return scheduleAdded;
+        DailyCalendar dailyCalendar = new DailyCalendar(givenDay);
+        _dailySchedules.Add(dailyCalendar);
     }
     public Task CreateNewTask(string taskName, string taskDescription, DateOnly date)
     {
@@ -51,6 +50,23 @@ public class MainRunner
     }
 
     //Adding new things to a daily schedule
+    //Calendar
+    public bool AddNewDailySchedule(DailyCalendar day)
+    {
+        bool scheduleAdded = true;
+        foreach (DailyCalendar cal in _dailySchedules)
+        {
+            if (cal.Date == day.Date)
+            {
+                scheduleAdded = false;
+            }
+        }
+        if (scheduleAdded != false)
+        {
+            _dailySchedules.Add(day);
+        }
+        return scheduleAdded;
+    }
     //Task
     public bool AddTaskToDay(Task task, DateOnly givenDay)
     {
@@ -74,7 +90,7 @@ public class MainRunner
         if (schedlueExists == false)
         {
             DailyCalendar NewSchedule = new DailyCalendar(givenDay);
-            CreateNewDailySchedule(NewSchedule);
+            AddNewDailySchedule(NewSchedule);
             NewSchedule.AddTask(task);
             taskAdded = true;
         }
@@ -104,7 +120,7 @@ public class MainRunner
         if (schedlueExists == false)
         {
             DailyCalendar NewSchedule = new DailyCalendar(givenDay);
-            CreateNewDailySchedule(NewSchedule);
+            AddNewDailySchedule(NewSchedule);
             NewSchedule.AddReminder(reminder);
             reminderAdded = true;
         }
@@ -134,7 +150,7 @@ public class MainRunner
         if (schedlueExists == false)
         {
             DailyCalendar NewSchedule = new DailyCalendar(newEvent.scheduledDate);
-            CreateNewDailySchedule(NewSchedule);
+            AddNewDailySchedule(NewSchedule);
             NewSchedule.AddEvent(newEvent);
             eventAdded = true;
         }
@@ -164,7 +180,7 @@ public class MainRunner
         if (schedlueExists == false)
         {
             DailyCalendar NewSchedule = new DailyCalendar(givenDay);
-            CreateNewDailySchedule(NewSchedule);
+            AddNewDailySchedule(NewSchedule);
             NewSchedule.AddAlarm(alarm);
             alarmAdded = true;
         }
@@ -189,7 +205,7 @@ public class MainRunner
         if (schedlueExists == false)
         {
             DailyCalendar NewSchedule = new DailyCalendar(givenNote.dateCreated);
-            CreateNewDailySchedule(NewSchedule);
+            AddNewDailySchedule(NewSchedule);
             NewSchedule.AddNote(givenNote);
             alarmAdded = true;
         }

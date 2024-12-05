@@ -14,6 +14,28 @@
     </form>
 </div>
 <div class="border m-3 p-2">
+    <h3>Create New Event</h3>
+    <form @onsubmit="addEvent">
+        <label>
+            Date:
+            <input @bind="givenDay" type="text" />
+        </label>
+        <label>
+            Time:
+            <input @bind="time" type="text" />
+        </label>
+        <label>
+            Name:
+            <input @bind="name" type="text" />
+        </label><label>
+            Description:
+            <input @bind="description" type="text" />
+        </label>
+
+        <button type="submit">Add</button>
+    </form>
+</div>
+<div class="border m-3 p-2">
     <h3>Create New Task</h3>
     <form @onsubmit="addTask">
         <label>
@@ -31,11 +53,23 @@
         <button type="submit">Add</button>
     </form>
 </div>
+<div class="border m-3 p-2">
+    <h3>Create New Alarm</h3>
+    <form @onsubmit="addAlarm">
+        <label>
+            Time:
+            <input @bind="time" type="text" />
+        </label>
+        <button type="submit">Add</button>
+    </form>
+</div>
 
 @code {
-    DateOnly givenDay;
+    DateOnly givenDay = DateOnly.FromDateTime(DateTime.Now);
+    TimeOnly time;
     string name = "";
     string description = "";
+
     MainRunner mainRunner = MainRunner.Instance;
 
     void addCalendar()
