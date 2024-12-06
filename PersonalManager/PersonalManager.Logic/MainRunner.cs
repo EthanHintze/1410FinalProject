@@ -227,5 +227,14 @@ public class MainRunner
         return alarmAdded;
 
     }
+    //Populates Weekly Calendar
+    public WeeklyCalender PopulateWeeklyCalendar(WeeklyCalender weeklyCalender)
+    {
+        for (int i = 0; i < 7; i++)
+        {
+
+        }
+        return weeklyCalender;
+    }
 
 }
