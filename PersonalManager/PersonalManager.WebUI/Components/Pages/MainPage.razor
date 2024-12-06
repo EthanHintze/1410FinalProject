@@ -6,13 +6,28 @@
 
 @foreach (var dCal in mainRunner.dailyCalendars)
 {
+    <div class="border m-2 p-2">
 
         <p>@dCal.Date</p>
-        foreach(var calItem in dCal.calendarItems)
+        @foreach (var calItem in dCal.calendarItems)
         {
-        <p>@calItem.CalendarText</p>
+            <p>@calItem.CalendarText</p>
+            @if (calItem is PersonalManager.Logic.Task)
+            {
+                <label>
+                    <button @onclick="()=> checkTask(calItem)">Complete</button>
+                </label>
+            }
         }
+    </div>
 }
 @code {
     MainRunner mainRunner = MainRunner.Instance;
+    void checkTask(ICalendarItem completedTask)
+    {
+        if (completedTask is PersonalManager.Logic.Task task)
+        {
+            task.MarkComplete();
+        }
+    }
 }
