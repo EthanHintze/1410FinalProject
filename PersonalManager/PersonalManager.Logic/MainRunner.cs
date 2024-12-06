@@ -3,15 +3,19 @@
 public class MainRunner
 {
     private List<DailyCalendar> _dailySchedules { get; set; }
-    public List <DailyCalendar> dailyCalendars{get{return _dailySchedules;}}
+    public List<DailyCalendar> dailyCalendars { get { return _dailySchedules; } }
     private static MainRunner _instance;
-    public static MainRunner Instance { get{
-        if (_instance == null)
+    public static MainRunner Instance
+    {
+        get
         {
-            _instance = new MainRunner();
+            if (_instance == null)
+            {
+                _instance = new MainRunner();
+            }
+            return _instance;
         }
-        return _instance;
-    }}  
+    }
 
     public MainRunner()
     {
@@ -20,8 +24,19 @@ public class MainRunner
     //Creating new components
     public void CreateNewCalendar(DateOnly givenDay)
     {
+        bool containsCalendar = false;
         DailyCalendar dailyCalendar = new DailyCalendar(givenDay);
-        _dailySchedules.Add(dailyCalendar);
+        foreach (DailyCalendar day in _dailySchedules)
+        {
+            if (day.Date == givenDay)
+            {
+                containsCalendar = true;
+            }
+        }
+        if (!containsCalendar)
+        {
+            _dailySchedules.Add(dailyCalendar);
+        }
     }
     public Task CreateNewTask(string taskName, string taskDescription, DateOnly date)
     {

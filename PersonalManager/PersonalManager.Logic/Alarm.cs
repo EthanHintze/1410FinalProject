@@ -8,7 +8,7 @@ public string CalendarText
     {
         get
         {
-            return $"Scheduled TIme:{_setTime}";
+            return $"-Alarm- Scheduled TIme:{_setTime}";
         }
     }
     public Alarm(TimeOnly setTime)

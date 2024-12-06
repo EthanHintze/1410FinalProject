@@ -9,7 +9,7 @@ public class Reminder : ICalendarItem
     {
         get
         {
-            return $"Time {_reminderTime} Name:{_reminderName} ";
+            return $"-Reminder- Time {_reminderTime} Name:{_reminderName} ";
         }
     }
     public Reminder(string reminderName, TimeOnly reminderTime)

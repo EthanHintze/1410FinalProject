@@ -14,7 +14,7 @@ public class Event : ICalendarItem
     {
         get
         {
-            return $"{_scheduledTime} Name:{_eventName} Description:{_eventDescription}";
+            return $"-Event- {_scheduledTime} Name:{_eventName} Description:{_eventDescription}";
         }
     }
 

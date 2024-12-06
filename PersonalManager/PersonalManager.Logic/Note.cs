@@ -9,7 +9,7 @@ public class Note : ICalendarItem
     {
         get
         {
-            return $"Note:{_content}";
+            return $"-Note- {_content}";
         }
     }
 

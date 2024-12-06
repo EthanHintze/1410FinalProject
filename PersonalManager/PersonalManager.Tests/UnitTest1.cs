@@ -50,6 +50,23 @@ public class StartManager
         bool duplicateTaskAdded = personalManager.AddTaskToDay(task, day);
         Assert.False(duplicateTaskAdded);
     }
+    [Fact]
+    public void CanToggleComplete()
+    {
+        var day = new DateOnly(2024, 2, 8);
+        var task = personalManager.CreateNewTask("Clean", "Clean the kitchen", day);  
+        task.ToggleComplete();
+        Assert.True(task.isComplete);
+    }
+     [Fact]
+    public void CanToggleIncomplete()
+    {
+        var day = new DateOnly(2024, 2, 8);
+        var task = personalManager.CreateNewTask("Clean", "Clean the kitchen", day);  
+        task.ToggleComplete();
+        task.ToggleComplete();
+        Assert.False(task.isComplete);
+    }
     //Feature 3: Reminder Tests
     [Fact]
     public void CanAddReminderToDayExistingDay()
@@ -146,5 +163,10 @@ public class StartManager
         var newNote = personalManager.CreateNewNote(note, day);
         bool noteAdded = personalManager.AddNoteToDay(newNote);
         Assert.True(noteAdded);
+    }
+    //Feature 7: Weekly Calendar
+    public void MakeWeeklyCalendar()
+    {
+        var weeklyCalendar = new WeeklyCalender();
     }
 }

@@ -5,15 +5,16 @@ public class Task : ICalendarItem
     private string _taskName { get; }
     private string _taskDescription { get; }
     private DateOnly _date { get; }
-    private bool _isComplete { get; }
+    private bool _isComplete { get; set; }
     public string taskName { get => _taskName; }
     public string taskDescription { get => _taskDescription; }
+    public bool isComplete { get => _isComplete; }
 
     public string CalendarText
     {
         get
         {
-            return $"Name:{_taskName} Description:{_taskDescription} Complete:{_isComplete}";
+            return $"-Task- Name:{_taskName} Description:{_taskDescription} Complete:{_isComplete}";
         }
     }
 
@@ -23,5 +24,16 @@ public class Task : ICalendarItem
         _taskDescription = taskDescription;
         _date = date;
         _isComplete = false;
+    }
+    public void ToggleComplete()
+    {
+        if (_isComplete)
+        { 
+            _isComplete = false; 
+        }
+        else
+        {
+            _isComplete = true;
+        }
     }
 }

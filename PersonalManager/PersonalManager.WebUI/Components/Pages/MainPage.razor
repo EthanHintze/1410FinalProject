@@ -11,12 +11,15 @@
         <p>@dCal.Date</p>
         @foreach (var calItem in dCal.calendarItems)
         {
-            <p>@calItem.CalendarText</p>
             @if (calItem is PersonalManager.Logic.Task)
             {
                 <label>
-                    <button @onclick="()=> checkTask(calItem)">Complete</button>
+                    <p>@calItem.CalendarText <button @onclick="()=> checkTask(calItem)">Complete</button></p>
                 </label>
+            }
+            else
+            {
+                <p>@calItem.CalendarText</p>
             }
         }
     </div>
@@ -27,7 +30,7 @@
     {
         if (completedTask is PersonalManager.Logic.Task task)
         {
-            task.MarkComplete();
+            task.ToggleComplete();
         }
     }
 }
