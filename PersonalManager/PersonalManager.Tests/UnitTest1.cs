@@ -168,5 +168,7 @@ public class StartManager
     public void MakeWeeklyCalendar()
     {
         var weeklyCalendar = new WeeklyCalender();
+        weeklyCalendar = personalManager.PopulateWeeklyCalendar(weeklyCalendar);
+        Assert.True(weeklyCalendar.Count() == 7);
     }
 }
