@@ -104,9 +104,9 @@ public class MainRunner
         //Creates new schedule if one doesnt exist
         if (schedlueExists == false)
         {
-            DailyCalendar NewSchedule = new DailyCalendar(givenDay);
-            AddNewDailySchedule(NewSchedule);
-            NewSchedule.AddTask(task);
+            DailyCalendar newSchedule = new DailyCalendar(givenDay);
+            AddNewDailySchedule(newSchedule);
+            newSchedule.AddTask(task);
             taskAdded = true;
         }
         return taskAdded;
@@ -134,9 +134,9 @@ public class MainRunner
         //Creates new schedule if one doesnt exist
         if (schedlueExists == false)
         {
-            DailyCalendar NewSchedule = new DailyCalendar(givenDay);
-            AddNewDailySchedule(NewSchedule);
-            NewSchedule.AddReminder(reminder);
+            DailyCalendar newSchedule = new DailyCalendar(givenDay);
+            AddNewDailySchedule(newSchedule);
+            newSchedule.AddReminder(reminder);
             reminderAdded = true;
         }
         return reminderAdded;
@@ -164,9 +164,9 @@ public class MainRunner
         //Creates new schedule if one doesnt exist
         if (schedlueExists == false)
         {
-            DailyCalendar NewSchedule = new DailyCalendar(newEvent.scheduledDate);
-            AddNewDailySchedule(NewSchedule);
-            NewSchedule.AddEvent(newEvent);
+            DailyCalendar newSchedule = new DailyCalendar(newEvent.scheduledDate);
+            AddNewDailySchedule(newSchedule);
+            newSchedule.AddEvent(newEvent);
             eventAdded = true;
         }
         return eventAdded;
@@ -194,9 +194,9 @@ public class MainRunner
         //Creates new schedule if one doesnt exist
         if (schedlueExists == false)
         {
-            DailyCalendar NewSchedule = new DailyCalendar(givenDay);
-            AddNewDailySchedule(NewSchedule);
-            NewSchedule.AddAlarm(alarm);
+            DailyCalendar newSchedule = new DailyCalendar(givenDay);
+            AddNewDailySchedule(newSchedule);
+            newSchedule.AddAlarm(alarm);
             alarmAdded = true;
         }
         return alarmAdded;
@@ -219,9 +219,9 @@ public class MainRunner
         //Creates new schedule if one doesnt exist
         if (schedlueExists == false)
         {
-            DailyCalendar NewSchedule = new DailyCalendar(givenNote.dateCreated);
-            AddNewDailySchedule(NewSchedule);
-            NewSchedule.AddNote(givenNote);
+            DailyCalendar newSchedule = new DailyCalendar(givenNote.dateCreated);
+            AddNewDailySchedule(newSchedule);
+            newSchedule.AddNote(givenNote);
             alarmAdded = true;
         }
         return alarmAdded;
@@ -230,9 +230,27 @@ public class MainRunner
     //Populates Weekly Calendar
     public WeeklyCalender PopulateWeeklyCalendar(WeeklyCalender weeklyCalender)
     {
+        DateOnly todaysDate = DateOnly.FromDateTime(DateTime.Now);
         for (int i = 0; i < 7; i++)
         {
+            bool schedlueExists = false;
+            foreach (DailyCalendar schedule in _dailySchedules)
+            {
+                if (schedule.Date.Day == todaysDate.Day + i && schedule.Date.Month == todaysDate.Month)
+                {
+                    weeklyCalender.AddCalendarToWeek(schedule);
 
+                    schedlueExists = true;
+                }
+            }
+            //Creates new schedule if one doesnt exist
+            if (schedlueExists == false)
+            {
+                DateOnly newDate = new DateOnly(todaysDate.Year, todaysDate.Day + i, todaysDate.Month);
+                DailyCalendar newSchedule = new DailyCalendar(newDate);
+                AddNewDailySchedule(newSchedule);
+                weeklyCalender.AddCalendarToWeek(newSchedule);
+            }
         }
         return weeklyCalender;
     }

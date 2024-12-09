@@ -167,8 +167,9 @@ public class StartManager
     //Feature 7: Weekly Calendar
     public void MakeWeeklyCalendar()
     {
-        var weeklyCalendar = new WeeklyCalender();
-        weeklyCalendar = personalManager.PopulateWeeklyCalendar(weeklyCalendar);
-        Assert.True(weeklyCalendar.Count() == 7);
+        var newWeeklyCalendar = new WeeklyCalender();
+        newWeeklyCalendar = personalManager.PopulateWeeklyCalendar(newWeeklyCalendar);
+        Assert.True(newWeeklyCalendar.WeeklyCalendar.Count() == 7);
     }
+    
 }

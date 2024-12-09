@@ -9,5 +9,9 @@ public class WeeklyCalender
     {
         _weeklyCalendar = new List<DailyCalendar>();   
     }
+    public void AddCalendarToWeek(DailyCalendar newCalendar)
+    {
+        _weeklyCalendar.Add(newCalendar);
+    }
 
 }
