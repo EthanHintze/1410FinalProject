@@ -3,8 +3,13 @@
 <PageTitle>Current Calendars</PageTitle>
 
 <h1>Main Page</h1>
+@mainRunner.GetWeeklyCalenders();
+@foreach (var wCal in @mainRunner.GetWeeklyCalenders())
+{
+    <p>@wCal.Date</p>
 
-@foreach (var dCal in mainRunner.dailyCalendars)
+}
+@foreach (var dCal in mainRunner.dailyCalendars.Where(c=>c.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(7))))
 {
     <div class="border m-2 p-2">
 
@@ -33,4 +38,6 @@
             task.ToggleComplete();
         }
     }
+   
+    
 }
