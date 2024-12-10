@@ -3,14 +3,32 @@
 <PageTitle>Current Calendars</PageTitle>
 
 <h1>Main Page</h1>
-@mainRunner.GetWeeklyCalenders();
+@* @mainRunner.GetWeeklyCalenders(); *@
 @foreach (var wCal in @mainRunner.GetWeeklyCalenders())
 {
-    <p>@wCal.Date</p>
+    <div class="border m-2 p-2">
+
+        <p>@wCal.Date</p>
+        @foreach (var calItem in wCal.calendarItems)
+        {
+            @if (calItem is PersonalManager.Logic.Task)
+            {
+                <label>
+                    <p>@calItem.CalendarText <button @onclick="()=> checkTask(calItem)">Complete</button></p>
+                </label>
+            }
+            else
+            {
+                <p>@calItem.CalendarText</p>
+            }
+        }
+    </div>
+
 
 }
-@foreach (var dCal in mainRunner.dailyCalendars.Where(c=>c.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(7))))
+@foreach (var dCal in mainRunner.dailyCalendars.Where(c => c.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(7))))
 {
+    
     <div class="border m-2 p-2">
 
         <p>@dCal.Date</p>
@@ -38,6 +56,6 @@
             task.ToggleComplete();
         }
     }
-   
-    
+
+
 }
