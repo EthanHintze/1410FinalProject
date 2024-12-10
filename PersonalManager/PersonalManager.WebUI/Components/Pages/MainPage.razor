@@ -28,7 +28,7 @@
 }
 @foreach (var dCal in mainRunner.dailyCalendars.Where(c => c.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(7))))
 {
-    
+
     <div class="border m-2 p-2">
 
         <p>@dCal.Date</p>

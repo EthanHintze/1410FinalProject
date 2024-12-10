@@ -1,9 +1,10 @@
 ﻿namespace PersonalManager.Logic;
-
+//(REQ#2.1.2)
 public class MainRunner
 {
     private List<DailyCalendar> _dailySchedules { get; set; }
     public List<DailyCalendar> dailyCalendars { get { return _dailySchedules; } }
+    public WeeklyCalender weeklyCalender { get; set; }
     private static MainRunner _instance;
     public static MainRunner Instance
     {
@@ -19,7 +20,10 @@ public class MainRunner
 
     public MainRunner()
     {
+        GetWeeklyCalenders();
         _dailySchedules = new List<DailyCalendar>();
+        weeklyCalender = new WeeklyCalender();
+
     }
     //Creating new components
     public void CreateNewCalendar(DateOnly givenDay)
@@ -66,6 +70,7 @@ public class MainRunner
 
     //Adding new things to a daily schedule
     //Calendar
+    //(REQ#1.1.3)
     public bool AddNewDailySchedule(DailyCalendar day)
     {
         bool scheduleAdded = true;
@@ -83,6 +88,7 @@ public class MainRunner
         return scheduleAdded;
     }
     //Task
+    //(REQ#1.2.3)
     public bool AddTaskToDay(Task task, DateOnly givenDay)
     {
         bool taskAdded = false;
@@ -113,6 +119,7 @@ public class MainRunner
 
     }
     //Reminder
+    //(REQ#1.3.3)
     public bool AddReminderToDay(Reminder reminder, DateOnly givenDay)
     {
         bool reminderAdded = false;
@@ -143,6 +150,7 @@ public class MainRunner
 
     }
     //Event
+    //(REQ#1.4.3)
     public bool AddEventToDay(Event newEvent)
     {
         bool eventAdded = false;
@@ -173,6 +181,7 @@ public class MainRunner
 
     }
     //Alarm
+    //(REQ#1.5.3)
     public bool AddAlarmToDay(Alarm alarm, DateOnly givenDay)
     {
         bool alarmAdded = false;
@@ -202,6 +211,8 @@ public class MainRunner
         return alarmAdded;
 
     }
+    //Note
+    //(REQ#1.6.3)
     public bool AddNoteToDay(Note givenNote)
     {
         bool alarmAdded = false;
@@ -228,17 +239,20 @@ public class MainRunner
 
     }
     //Populates Weekly Calendar
-    public WeeklyCalender PopulateWeeklyCalendar(WeeklyCalender weeklyCalender)
+    //(REQ#1.7.3)
+    public List<DailyCalendar> GetWeeklyCalenders()
     {
+        var calendars = new List<DailyCalendar>();
         DateOnly todaysDate = DateOnly.FromDateTime(DateTime.Now);
         for (int i = 0; i < 7; i++)
         {
+            var day = 9;
             bool schedlueExists = false;
             foreach (DailyCalendar schedule in _dailySchedules)
             {
-                if (schedule.Date.Day == todaysDate.Day + i && schedule.Date.Month == todaysDate.Month)
+                if (schedule.Date.Day == day + i && schedule.Date.Month == todaysDate.Month)
                 {
-                    weeklyCalender.AddCalendarToWeek(schedule);
+                    calendars.Add(schedule);
 
                     schedlueExists = true;
                 }
@@ -246,13 +260,14 @@ public class MainRunner
             //Creates new schedule if one doesnt exist
             if (schedlueExists == false)
             {
-                DateOnly newDate = new DateOnly(todaysDate.Year, todaysDate.Day + i, todaysDate.Month);
+                DateOnly newDate = new DateOnly(todaysDate.Year, todaysDate.Month, day + i);
+                // DateOnly newDate = new DateOnly(todaysDate.Year, day, todaysDate.Month);
                 DailyCalendar newSchedule = new DailyCalendar(newDate);
                 AddNewDailySchedule(newSchedule);
-                weeklyCalender.AddCalendarToWeek(newSchedule);
+                calendars.Add(newSchedule);
             }
         }
-        return weeklyCalender;
+        return calendars;
     }
 
 }

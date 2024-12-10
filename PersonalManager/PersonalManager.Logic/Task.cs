@@ -1,5 +1,5 @@
 namespace PersonalManager.Logic;
-
+//(REQ#2.2.1)
 public class Task : ICalendarItem
 {
     private string _taskName { get; }

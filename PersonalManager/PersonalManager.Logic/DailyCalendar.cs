@@ -1,20 +1,20 @@
 namespace PersonalManager.Logic;
-
-public class DailyCalendar 
+//(REQ#2.1.1)
+public class DailyCalendar
 {
     private List<Event> _schedule;
-    private DateOnly _date{get;}
+    private DateOnly _date { get; }
     private List<Task> _tasks;
     private List<Reminder> _reminders;
     private List<Alarm> _alarms;
     private List<Note> _notes;
-    public DateOnly Date{get{return _date;}}
-    public List<Task> Tasks{get{return _tasks;}}
-    public List<Event> Events{get{return _schedule;}}
-    public List<Note> Notes{get{return _notes;}}
-    public List<Reminder> Reminders{get{return _reminders;}}
-    public List<Alarm> Alarms{get{return _alarms;}}
-    
+    public DateOnly Date { get { return _date; } }
+    public List<Task> Tasks { get { return _tasks; } }
+    public List<Event> Events { get { return _schedule; } }
+    public List<Note> Notes { get { return _notes; } }
+    public List<Reminder> Reminders { get { return _reminders; } }
+    public List<Alarm> Alarms { get { return _alarms; } }
+
     public List<ICalendarItem> calendarItems;
 
     public DailyCalendar(DateOnly date)
@@ -31,9 +31,9 @@ public class DailyCalendar
     public bool CheckTasks(Task givenTask)
     {
         bool containsTask = false;
-        foreach(Task task in _tasks)
+        foreach (Task task in _tasks)
         {
-            if(task.taskName == givenTask.taskName && task.taskDescription == givenTask.taskDescription)
+            if (task.taskName == givenTask.taskName && task.taskDescription == givenTask.taskDescription)
             {
                 containsTask = true;
             }
@@ -43,21 +43,21 @@ public class DailyCalendar
     public bool CheckReminders(Reminder givenReminder)
     {
         bool containsReminder = false;
-        foreach(Reminder reminder in _reminders)
+        foreach (Reminder reminder in _reminders)
         {
-            if(reminder.reminderName == givenReminder.reminderName)
+            if (reminder.reminderName == givenReminder.reminderName)
             {
                 containsReminder = true;
             }
         }
         return containsReminder;
     }
-     public bool CheckEvent(Event givenEvent)
+    public bool CheckEvent(Event givenEvent)
     {
         bool containsEvent = false;
-        foreach(Event nEvent in _schedule)
+        foreach (Event nEvent in _schedule)
         {
-            if(nEvent.eventName == givenEvent.eventName && nEvent.scheduledTime == givenEvent.scheduledTime)
+            if (nEvent.eventName == givenEvent.eventName && nEvent.scheduledTime == givenEvent.scheduledTime)
             {
                 containsEvent = true;
             }
@@ -67,9 +67,9 @@ public class DailyCalendar
     public bool CheckAlarm(Alarm givenAlarm)
     {
         bool containsAlarm = false;
-        foreach(Alarm alarm in _alarms)
+        foreach (Alarm alarm in _alarms)
         {
-            if(alarm.setTime == givenAlarm.setTime)
+            if (alarm.setTime == givenAlarm.setTime)
             {
                 containsAlarm = true;
             }
@@ -104,7 +104,7 @@ public class DailyCalendar
         _notes.Add(newNote);
         calendarItems.Add(newNote);
     }
-    
+
 
 
 }

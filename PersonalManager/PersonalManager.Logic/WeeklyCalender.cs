@@ -1,5 +1,5 @@
 namespace PersonalManager.Logic;
-
+//(REQ#2.1.2)
 public class WeeklyCalender
 {
     private List<DailyCalendar> _weeklyCalendar{get;}
